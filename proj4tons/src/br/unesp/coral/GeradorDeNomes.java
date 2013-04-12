@@ -4,6 +4,8 @@
  */
 package br.unesp.coral;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -40,8 +42,11 @@ public class GeradorDeNomes {
     
     
     public static void main(String[] args) {
+        List<Musica> lista = new ArrayList<Musica>();
         for (int i = 0; i < 10; i++) {
-            System.out.println(prox());
-        }
+            Musica m = new Musica(prox());
+            lista.add(m);
+            System.out.println(m.getNome());
+        }                
     }
 }
