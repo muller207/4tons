@@ -133,18 +133,21 @@ public class TelaAddMusica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        boolean add = false;
         Musica m = new Musica();        
         if (!jTextField1.getText().equals("")){
         m.setNome(jTextField1.getText());        
         try {          
             m.setCaminho(x.getSelectedFile().getPath());
+            add=true;
         } catch (NullPointerException e) {  
            JOptionPane.showMessageDialog(null, "Selecione o caminho da música!", "Erro", JOptionPane.WARNING_MESSAGE);  
         }         
         }else{    
            JOptionPane.showMessageDialog(null, "Adicione um nome à música!", "Erro", JOptionPane.WARNING_MESSAGE);  
         }
-        dispose();        
+        if(add)
+            dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
