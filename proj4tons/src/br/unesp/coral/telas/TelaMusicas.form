@@ -109,7 +109,10 @@
           </Properties>
           <Events>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jList1ValueChanged"/>
+            <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="jList1ComponentAdded"/>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jList1FocusGained"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jList1PropertyChange"/>
+            <EventHandler event="ancestorRemoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jList1AncestorRemoved"/>
           </Events>
         </Component>
       </SubComponents>
@@ -123,6 +126,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Remover"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>

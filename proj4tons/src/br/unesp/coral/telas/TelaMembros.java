@@ -5,14 +5,18 @@
 package br.unesp.coral.telas;
 
 import br.unesp.coral.beans.Corista;
-import br.unesp.coral.beans.Musica;
+import br.unesp.coral.dao.CoristaDAO;
+import br.unesp.coral.dao.CoristaDAOImp;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Samuel
  */
 public class TelaMembros extends javax.swing.JFrame {
+CoristaDAO cdao = new CoristaDAOImp();
 
     /**
      * Creates new form TelaMembros
@@ -20,6 +24,19 @@ public class TelaMembros extends javax.swing.JFrame {
     public TelaMembros() {
         initComponents();
     }
+	
+	public void carregarListaMembros(){
+	  ArrayList<Corista> l = (ArrayList<Corista>) cdao.carregarCoristas();
+	  DefaultListModel coristas = new DefaultListModel();
+	  for (Corista c : l) {
+			coristas.addElement(c);
+		}
+	  if(coristas!=null){
+		jList1.setModel(coristas);
+	  }else{		
+		JOptionPane.showMessageDialog(null, "Nenhum membro adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
+	  }
+	}	
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,13 +139,7 @@ public class TelaMembros extends javax.swing.JFrame {
       jButton4.setEnabled(false);
       jButton2.setEnabled(false);
       jButton3.setEnabled(false);
-      DefaultListModel<Corista> l = new DefaultListModel<Corista>();
-      for(int i=0; i<10;i++){
-        Corista c = new Corista();
-        c.setNome("Corista "+(i+1));        
-        l.addElement(c);
-      }
-      jList1.setModel(l);
+	  carregarListaMembros();
     }//GEN-LAST:event_formWindowOpened
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged

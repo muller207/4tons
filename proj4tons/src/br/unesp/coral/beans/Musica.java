@@ -4,14 +4,16 @@
  */
 package br.unesp.coral.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author aluno
  */
-public class Musica {
+public class Musica implements Serializable{
 	
 	private String nome;
-        private String caminho;
+    private String caminho;
 	private String cantada;
 	private String playback;
 	private String partitura;

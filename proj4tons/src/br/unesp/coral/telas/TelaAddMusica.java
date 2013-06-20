@@ -5,8 +5,13 @@
 package br.unesp.coral.telas;
 
 import br.unesp.coral.beans.Musica;
+import br.unesp.coral.dao.MusicaDAO;
+import br.unesp.coral.dao.MusicaDAOImp;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.event.AncestorEvent;
 
 /**
  *
@@ -21,6 +26,14 @@ public class TelaAddMusica extends javax.swing.JFrame {
     public TelaAddMusica() {
         initComponents();
     }
+	
+	public void inicializarTelaMusica(){
+		TelaMusicas t = new TelaMusicas();
+		t.setSize(500, 500);
+		t.setResizable(false);
+		t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);                               
+		t.setVisible(true);
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,12 +137,17 @@ public class TelaAddMusica extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         x = new JFileChooser();
         x.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        x.showOpenDialog(null);        
-        jTextField2.setText(x.getSelectedFile().getPath());
+        x.showOpenDialog(null);
+		try {
+			jTextField2.setText(x.getSelectedFile().getPath());
+		} catch (Exception e) {
+		}
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
+		inicializarTelaMusica();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -146,8 +164,20 @@ public class TelaAddMusica extends javax.swing.JFrame {
         }else{    
            JOptionPane.showMessageDialog(null, "Adicione um nome à música!", "Erro", JOptionPane.WARNING_MESSAGE);  
         }
-        if(add)
+        if(add){
+			MusicaDAO mdao = new MusicaDAOImp();
+			List<Musica> l = mdao.carregarMusicas();
+			if (l ==null)
+				l = new ArrayList<Musica>();
+			l.add(m);
+			if(mdao.salvarMusicas(l)){
+				JOptionPane.showMessageDialog(null, "Música adicionada com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
+			}else{
+				JOptionPane.showMessageDialog(null, "Música não adicionada!", "Erro", JOptionPane.ERROR_MESSAGE); 
+			}
+		}
             dispose();
+			inicializarTelaMusica();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

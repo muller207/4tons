@@ -4,11 +4,13 @@
  */
 package br.unesp.coral.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Samuel
  */ 
-public class Corista {
+public class Corista implements Serializable{
     private String nome;
 
     public Corista() {

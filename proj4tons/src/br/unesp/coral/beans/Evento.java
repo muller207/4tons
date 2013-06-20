@@ -4,11 +4,13 @@
  */
 package br.unesp.coral.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Samuel
  */
-public class Evento {
+public class Evento implements Serializable{
 String titulo;
 
     public Evento() {

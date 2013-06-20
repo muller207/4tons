@@ -4,18 +4,39 @@
  */
 package br.unesp.coral.telas;
 
+import br.unesp.coral.beans.Evento;
+import br.unesp.coral.dao.EventoDAO;
+import br.unesp.coral.dao.EventoDAOImp;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Samuel
  */
 public class TelaEventos extends javax.swing.JFrame {
-
     /**
      * Creates new form TelaEventos
      */
+	EventoDAO edao = new EventoDAOImp();
+	
     public TelaEventos() {
         initComponents();
     }
+	
+	public void carregarListaEventos(){
+	  ArrayList<Evento> l = (ArrayList<Evento>) edao.carregarEventos();
+	  DefaultListModel eventos = new DefaultListModel();
+	  for (Evento e : l) {
+			eventos.addElement(e);
+		}
+	  if(eventos!=null){
+		jList1.setModel(eventos);
+	  }else{		
+		JOptionPane.showMessageDialog(null, "Nenhum evento adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
+	  }
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,11 +70,6 @@ public class TelaEventos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Eventos");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jList1ValueChanged(evt);
@@ -93,7 +109,7 @@ public class TelaEventos extends javax.swing.JFrame {
                                 .addComponent(jButton3))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 31, Short.MAX_VALUE)
                                         .addComponent(jButton5)
@@ -144,6 +160,7 @@ public class TelaEventos extends javax.swing.JFrame {
         jButton4.setEnabled(false);
         jButton2.setEnabled(false);
         jButton5.setEnabled(false);
+		carregarListaEventos();
     }//GEN-LAST:event_formWindowOpened
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
