@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface MusicaDAO extends Serializable {
 	
+        abstract void verificaExistencia();
 	abstract List<Musica> carregarMusicas();
 	abstract boolean salvarMusicas(List<Musica> l);
 	

@@ -5,13 +5,13 @@
 package br.unesp.coral.dao;
 
 import br.unesp.coral.beans.Evento;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -45,5 +45,19 @@ public class EventoDAOImp implements EventoDAO{
 			return false;
 		}
 	}
+
+    @Override    
+    public void verificaExistencia(){
+            boolean exists = (new File("eventos.txt")).exists();  
+            if (exists) {  
+                
+          } else {  
+              try{
+                   File f = new File("eventos.txt");      
+                   f.createNewFile();
+          }catch(Exception e){              
+          }
+            }  
+    }
 	
 }

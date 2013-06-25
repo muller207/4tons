@@ -14,7 +14,9 @@ import java.util.List;
  */
 public interface EventoDAO extends Serializable {
 
-	List<Evento> carregarEventos();
+	abstract void verificaExistencia();
+    
+        List<Evento> carregarEventos();
 
 	boolean salvarEevntos(List<Evento> l);
 	

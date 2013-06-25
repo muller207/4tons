@@ -28,10 +28,11 @@ CoristaDAO cdao = new CoristaDAOImp();
 	public void carregarListaMembros(){
 	  ArrayList<Corista> l = (ArrayList<Corista>) cdao.carregarCoristas();
 	  DefaultListModel coristas = new DefaultListModel();
+          if(l!=null && l.size()>0){
 	  for (Corista c : l) {
 			coristas.addElement(c);
 		}
-	  if(coristas!=null){
+	  
 		jList1.setModel(coristas);
 	  }else{		
 		JOptionPane.showMessageDialog(null, "Nenhum membro adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
@@ -139,7 +140,8 @@ CoristaDAO cdao = new CoristaDAOImp();
       jButton4.setEnabled(false);
       jButton2.setEnabled(false);
       jButton3.setEnabled(false);
-	  carregarListaMembros();
+      cdao.verificaExistencia();
+      carregarListaMembros();      
     }//GEN-LAST:event_formWindowOpened
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged

@@ -30,10 +30,10 @@ public class TelaMusicas extends javax.swing.JFrame {
 	public void carregarListaMusicas(){
 	  ArrayList<Musica> l = (ArrayList<Musica>) mdao.carregarMusicas();
 	  DefaultListModel musicas = new DefaultListModel();
-	  for (Musica m : l) {
+          if(l!=null && l.size()>0){
+                for (Musica m : l) {
 			musicas.addElement(m);
-		}
-	  if(musicas!=null){
+		}	  
 		jList1.setModel(musicas);
 	  }else{		
 		JOptionPane.showMessageDialog(null, "Nenhuma música adicionada!", "Erro", JOptionPane.WARNING_MESSAGE);
@@ -109,6 +109,11 @@ public class TelaMusicas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Remover");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -199,15 +204,17 @@ public class TelaMusicas extends javax.swing.JFrame {
       jButton1.setEnabled(false);
       jButton2.setEnabled(false);
       jButton3.setEnabled(false);
-	  carregarListaMusicas();
+      mdao.verificaExistencia();      
+      carregarListaMusicas();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         dispose();
-		TelaAddMusica t = new TelaAddMusica();
+        TelaAddMusica t = new TelaAddMusica();
         t.setTitle("Adicionar Música");
         t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        t.setVisible(true);
+        t.setVisible(true);        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -234,6 +241,20 @@ public class TelaMusicas extends javax.swing.JFrame {
 		DefaultListModel l = (DefaultListModel) jList1.getModel();
 		l.removeElementAt(index);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            int index = jList1.getSelectedIndex();
+            ArrayList<Musica> musicas = (ArrayList<Musica>) mdao.carregarMusicas();
+            musicas.remove(index);
+            mdao.salvarMusicas(musicas);
+            DefaultListModel l = (DefaultListModel) jList1.getModel();
+            l.removeElementAt(index);    
+            dispose();
+            TelaAddMusica t = new TelaAddMusica();
+            t.setTitle("Editar Música");
+            t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            t.setVisible(true);       
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

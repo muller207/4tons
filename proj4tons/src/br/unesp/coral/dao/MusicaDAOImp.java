@@ -5,8 +5,11 @@
 package br.unesp.coral.dao;
 
 import br.unesp.coral.beans.Musica;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,7 +25,21 @@ public class MusicaDAOImp implements MusicaDAO{
 	public MusicaDAOImp() {
 	}
 
-	
+    @Override
+	public void verificaExistencia(){
+            boolean exists = (new File("musicas.txt")).exists();  
+            if (exists) {  
+                
+          } else {  
+              try{
+                   File f = new File("musicas.txt");      
+                   f.createNewFile();
+          }catch(Exception e){              
+          }
+            }  
+        }
+                
+                
 	@Override
 	public List<Musica> carregarMusicas(){
 		try {
@@ -47,6 +64,5 @@ public class MusicaDAOImp implements MusicaDAO{
 		}catch(Exception e){
 			return false;
 		}
-	}
-	
+	}	
 }

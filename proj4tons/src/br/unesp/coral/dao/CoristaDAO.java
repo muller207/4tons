@@ -13,6 +13,8 @@ import java.util.List;
  * @author aluno
  */
 public interface CoristaDAO extends Serializable {
+    
+        abstract void verificaExistencia();
 
 	List<Corista> carregarCoristas();
 

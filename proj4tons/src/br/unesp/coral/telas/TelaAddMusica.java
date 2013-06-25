@@ -10,14 +10,14 @@ import br.unesp.coral.dao.MusicaDAOImp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.event.AncestorEvent;
 
 /**
  *
  * @author Samuel
  */
-public class TelaAddMusica extends javax.swing.JFrame {
+public class TelaAddMusica extends JFrame {
     JFileChooser x;
    
     /**
@@ -141,13 +141,14 @@ public class TelaAddMusica extends javax.swing.JFrame {
 		try {
 			jTextField2.setText(x.getSelectedFile().getPath());
 		} catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Diretorio inválido!","Erro",JOptionPane.ERROR_MESSAGE);
 		}
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
-		inicializarTelaMusica();
+	inicializarTelaMusica();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -175,9 +176,10 @@ public class TelaAddMusica extends javax.swing.JFrame {
 			}else{
 				JOptionPane.showMessageDialog(null, "Música não adicionada!", "Erro", JOptionPane.ERROR_MESSAGE); 
 			}
-		}
-            dispose();
-			inicializarTelaMusica();
+              dispose();
+              inicializarTelaMusica();
+	  }
+            
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

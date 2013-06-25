@@ -5,13 +5,13 @@
 package br.unesp.coral.dao;
 
 import br.unesp.coral.beans.Corista;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,6 +20,21 @@ import java.util.List;
  */
 public class CoristaDAOImp implements CoristaDAO{
 	
+    
+    @Override
+    public void verificaExistencia(){
+            boolean exists = (new File("coristas.txt")).exists();  
+            if (exists) {  
+                
+          } else {  
+              try{
+                   File f = new File("coristas.txt");      
+                   f.createNewFile();
+          }catch(Exception e){              
+          }
+            }  
+        }
+    
 	@Override
 	public List<Corista> carregarCoristas(){
 		try {
