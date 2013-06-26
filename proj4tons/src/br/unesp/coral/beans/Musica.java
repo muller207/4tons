@@ -13,13 +13,8 @@ import java.io.Serializable;
 public class Musica implements Serializable{
 	
 	private String nome;
-    private String caminho;
-	private String cantada;
-	private String playback;
-	private String partitura;
-	private String letra;
-	private String kit;
-
+        private String caminho;
+        
 	public Musica() {           
 	}
 

@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
  * @author Samuel
  */
 public class TelaMembros extends javax.swing.JFrame {
-CoristaDAO cdao = new CoristaDAOImp();
+private CoristaDAO cdao = new CoristaDAOImp();
+private int index;
 
     /**
      * Creates new form TelaMembros
@@ -76,12 +77,32 @@ CoristaDAO cdao = new CoristaDAOImp();
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Adicionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Abrir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Editar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Remover");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Voltar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +170,58 @@ CoristaDAO cdao = new CoristaDAOImp();
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
     }//GEN-LAST:event_jList1ValueChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+        TelaAddCorista t = new TelaAddCorista();
+        t.setLocation(500, 0);
+        t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        t.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+            index = jList1.getSelectedIndex();
+            if(index!=-1){
+                ArrayList<Corista> coristas = (ArrayList<Corista>) cdao.carregarCoristas();
+                coristas.remove(index);
+                cdao.salvarCoristas(coristas);
+                DefaultListModel l = (DefaultListModel) jList1.getModel();
+                l.removeElementAt(index);
+                coristas = (ArrayList<Corista>) cdao.carregarCoristas();
+                if(coristas.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Nenhum membro adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
+                }
+            }else{
+                    JOptionPane.showMessageDialog(null, "Selecione um corista!", "Cuidado", JOptionPane.WARNING_MESSAGE);
+                }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+            index = jList1.getSelectedIndex();    
+            if(index!=-1){
+                dispose();
+                TelaAddCorista t = new TelaAddCorista(index);
+                t.setTitle("Editar Corista");
+                t.setLocation(500, 0);
+                t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                t.setVisible(true);                               
+            }else{
+                    JOptionPane.showMessageDialog(null, "Selecione um corista!", "Cuidado", JOptionPane.WARNING_MESSAGE);
+                }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Corista c = (Corista) jList1.getSelectedValue();
+        if(c!=null){
+            dispose();
+            TelaMostrarCorista t = new TelaMostrarCorista(c);
+            t.setTitle(c.getNome());
+            t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            t.setVisible(true);
+        }else{
+                    JOptionPane.showMessageDialog(null, "Selecione um corista!", "Cuidado", JOptionPane.WARNING_MESSAGE);
+                }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

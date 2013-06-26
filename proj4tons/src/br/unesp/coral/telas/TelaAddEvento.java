@@ -19,12 +19,19 @@ import javax.swing.SpinnerNumberModel;
  * @author Samuel
  */
 public class TelaAddEvento extends javax.swing.JFrame {
-
+boolean flag=false;
+    int index;
     /**
      * Creates new form TelaAddEvento
      */
     public TelaAddEvento() {
         initComponents();
+    }
+    
+    TelaAddEvento(int b) {
+        initComponents();
+        flag=true;
+        index =b;
     }
     
     public void inicializarTelaEvento(){        
@@ -166,19 +173,19 @@ public class TelaAddEvento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Evento e = new Evento();        
-        e.setTitulo(jTextField1.getText());
-        e.setLocal(jTextField2.getText());
-        Date d1 = jDateChooser1.getDate();
-        e.setDia(d1);
-        Date d2 = new Date();
-        Object hora = jSpinner1.getValue();        
-        d2.setHours(Integer.parseInt(jSpinner1.getValue().toString()));
-        d2.setMinutes(Integer.parseInt(jSpinner2.getValue().toString()));
-        e.setHora(d2);
-        e.setComentarios(jTextArea1.getText());
         boolean add = false;
-        if(!e.getTitulo().equals("") && !e.getLocal().equals("") && (e.getDia() != null)){
+        Evento e = new Evento();        
+        if(!jTextField1.equals("") && !jTextField2.equals("") && (jDateChooser1.getDate() != null)){            
+            e.setTitulo(jTextField1.getText());
+            e.setLocal(jTextField2.getText());
+            Date d1 = jDateChooser1.getDate();
+            e.setDia(d1);
+            Date d2 = new Date();
+            Object hora = jSpinner1.getValue();        
+            d2.setHours(Integer.parseInt(jSpinner1.getValue().toString()));
+            d2.setMinutes(Integer.parseInt(jSpinner2.getValue().toString()));
+            e.setHora(d2);
+            e.setComentarios(jTextArea1.getText());
             add=true;
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!", "Cuidado", JOptionPane.WARNING_MESSAGE); 
@@ -191,6 +198,11 @@ public class TelaAddEvento extends javax.swing.JFrame {
 			l.add(e);
 			if(edao.salvarEevntos(l)){
 				JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
+                                if(flag){
+                                    ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
+                                    eventos.remove(index);
+                                    edao.salvarEevntos(eventos);
+                                }
 			}else{
 				JOptionPane.showMessageDialog(null, "Evento não adicionado!", "Erro", JOptionPane.ERROR_MESSAGE); 
 			}

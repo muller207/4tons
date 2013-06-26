@@ -19,12 +19,20 @@ import javax.swing.JOptionPane;
  */
 public class TelaAddMusica extends JFrame {
     JFileChooser x;
+    boolean flag=false;
+    int index;
    
     /**
      * Creates new form TelaAddMusica
      */
     public TelaAddMusica() {
         initComponents();
+    }
+
+    TelaAddMusica(int b) {
+        initComponents();
+        flag=true;
+        index =b;
     }
 	
 	public void inicializarTelaMusica(){
@@ -172,7 +180,12 @@ public class TelaAddMusica extends JFrame {
 				l = new ArrayList<Musica>();
 			l.add(m);
 			if(mdao.salvarMusicas(l)){
-				JOptionPane.showMessageDialog(null, "Música adicionada com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
+                            JOptionPane.showMessageDialog(null, "Música adicionada com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
+                            if(flag){
+                                ArrayList<Musica> musicas = (ArrayList<Musica>) mdao.carregarMusicas();
+                                musicas.remove(index);
+                                mdao.salvarMusicas(musicas);                                                        
+                            }
 			}else{
 				JOptionPane.showMessageDialog(null, "Música não adicionada!", "Erro", JOptionPane.ERROR_MESSAGE); 
 			}

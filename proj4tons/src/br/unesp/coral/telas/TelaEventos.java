@@ -22,11 +22,12 @@ public class TelaEventos extends javax.swing.JFrame {
      * Creates new form TelaEventos
      */
 	EventoDAO edao = new EventoDAOImp();
+        int index;
 	
     public TelaEventos() {
         initComponents();
     }
-	
+    
 	public void carregarListaEventos(){
 	  ArrayList<Evento> l = (ArrayList<Evento>) edao.carregarEventos();
 	  DefaultListModel eventos = new DefaultListModel();
@@ -229,35 +230,46 @@ public class TelaEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            int index = jList1.getSelectedIndex();
-            ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
-            eventos.remove(index);
-            edao.salvarEevntos(eventos);
-            DefaultListModel l = (DefaultListModel) jList1.getModel();
-            l.removeElementAt(index);
+            index = jList1.getSelectedIndex();
+            if(index!=-1){
+                ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
+                eventos.remove(index);
+                edao.salvarEevntos(eventos);
+                DefaultListModel l = (DefaultListModel) jList1.getModel();
+                l.removeElementAt(index);
+                if(eventos.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Nenhum evento adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um evento!", "Cuidado", JOptionPane.WARNING_MESSAGE);    
+            }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            int index = jList1.getSelectedIndex();
-            ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
-            eventos.remove(index);
-            edao.salvarEevntos(eventos);
-            DefaultListModel l = (DefaultListModel) jList1.getModel();
-            l.removeElementAt(index);
-            dispose();
-            TelaAddEvento t = new TelaAddEvento();
-            t.setTitle("Editar Evento");
-            t.setLocation(500, 20);
-            t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            t.setVisible(true);            
+            index = jList1.getSelectedIndex();            
+            if(index!=-1){
+                dispose();
+                TelaAddEvento t = new TelaAddEvento(index);
+                t.setTitle("Editar Evento");
+                t.setLocation(500, 20);
+                t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                t.setVisible(true);            
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione um evento!", "Cuidado", JOptionPane.WARNING_MESSAGE);    
+            }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         Evento e = (Evento) jList1.getSelectedValue();
-        TelaMostrarEvento t = new TelaMostrarEvento(e);
-        t.setTitle(e.getTitulo());
-        t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        t.setVisible(true);
+        if(e!=null){
+            dispose();
+            TelaMostrarEvento t = new TelaMostrarEvento(e);
+            t.setTitle(e.getTitulo());
+            t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            t.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um evento!", "Cuidado", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

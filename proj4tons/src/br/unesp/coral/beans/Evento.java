@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Samuel
  */
 public class Evento implements Serializable{
-String titulo;
+private String titulo;
 private String local;
 private Date dia;
 private Date hora;

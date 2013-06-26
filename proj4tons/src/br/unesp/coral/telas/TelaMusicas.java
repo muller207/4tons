@@ -19,14 +19,14 @@ import javax.swing.JOptionPane;
  */
 public class TelaMusicas extends javax.swing.JFrame {
 	MusicaDAO mdao = new MusicaDAOImp();
-
+        int index;        
     /**
      * Creates new form TelaMusicas
      */
     public TelaMusicas() {
         initComponents();
     }
-	
+	    
 	public void carregarListaMusicas(){
 	  ArrayList<Musica> l = (ArrayList<Musica>) mdao.carregarMusicas();
 	  DefaultListModel musicas = new DefaultListModel();
@@ -183,10 +183,14 @@ public class TelaMusicas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Musica m = (Musica) jList1.getSelectedValue();        
-        try {            
-            Runtime.getRuntime().exec("explorer "+m.getCaminho());            
-        } catch (Exception ex) {
-            Logger.getLogger(TelaMusicas.class.getName()).log(Level.SEVERE, null, ex);
+        if(m!=null){
+            try {            
+                Runtime.getRuntime().exec("explorer "+m.getCaminho());            
+            } catch (Exception ex) {
+                Logger.getLogger(TelaMusicas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma música!", "Cuidado", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -213,8 +217,7 @@ public class TelaMusicas extends javax.swing.JFrame {
         TelaAddMusica t = new TelaAddMusica();
         t.setTitle("Adicionar Música");
         t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        t.setVisible(true);        
-        
+        t.setVisible(true);                
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -234,26 +237,32 @@ public class TelaMusicas extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1AncestorRemoved
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int index = jList1.getSelectedIndex();
-		ArrayList<Musica> musicas = (ArrayList<Musica>) mdao.carregarMusicas();
-		musicas.remove(index);
-		mdao.salvarMusicas(musicas);
-		DefaultListModel l = (DefaultListModel) jList1.getModel();
-		l.removeElementAt(index);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            int index = jList1.getSelectedIndex();
+        index = jList1.getSelectedIndex();
+        if(index!=-1){
             ArrayList<Musica> musicas = (ArrayList<Musica>) mdao.carregarMusicas();
             musicas.remove(index);
             mdao.salvarMusicas(musicas);
             DefaultListModel l = (DefaultListModel) jList1.getModel();
-            l.removeElementAt(index);    
-            dispose();
-            TelaAddMusica t = new TelaAddMusica();
-            t.setTitle("Editar Música");
-            t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            t.setVisible(true);       
+            l.removeElementAt(index);
+            if(musicas.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Nenhuma musica adicionada!", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma música!", "Cuidado", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            index = jList1.getSelectedIndex();
+            if(index!=-1){
+                dispose();
+                TelaAddMusica t = new TelaAddMusica(index);
+                t.setTitle("Editar Música");
+                t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                t.setVisible(true);       
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione uma música!", "Cuidado", JOptionPane.WARNING_MESSAGE);
+            }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

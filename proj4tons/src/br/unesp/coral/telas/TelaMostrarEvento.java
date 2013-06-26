@@ -21,12 +21,7 @@ public class TelaMostrarEvento extends javax.swing.JFrame {
     }
 
     public TelaMostrarEvento(Evento e) {
-        initComponents();
-        jTextField1.setEditable(false);
-        jTextField2.setEditable(false);
-        jTextField3.setEditable(false);
-        jTextField4.setEditable(false);
-        jTextArea1.setEditable(false);
+        initComponents();        
         jTextField1.setText(e.getTitulo());
         jTextField2.setText(e.getLocal());        
         SimpleDateFormat sdf = new SimpleDateFormat("       dd / MM / yyyy");
@@ -82,6 +77,15 @@ public class TelaMostrarEvento extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setEditable(false);
+
+        jTextField2.setEditable(false);
+
+        jTextField3.setEditable(false);
+
+        jTextField4.setEditable(false);
+
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
