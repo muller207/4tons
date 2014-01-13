@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Samuel
  */
-public class Evento implements Serializable{
+public class Evento implements Serializable, Comparable<Evento>{
 private String titulo;
 private String local;
 private Date dia;
@@ -31,7 +31,11 @@ private String comentarios;
 
     @Override
     public String toString() {
-        return this.titulo;
+        if(new Date().after(dia)){
+            return this.titulo+" - OK";
+        }else{
+            return this.titulo;
+        }
     }
 
     /**
@@ -88,6 +92,11 @@ private String comentarios;
      */
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    @Override
+    public int compareTo(Evento o) {
+        return dia.compareTo(o.getDia());
     }
     
 }

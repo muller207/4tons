@@ -61,6 +61,7 @@ public class TelaEventos extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -118,40 +119,42 @@ public class TelaEventos extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton3))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                                .addComponent(jLabel3))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(0, 31, Short.MAX_VALUE)
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 31, Short.MAX_VALUE)
-                                        .addComponent(jButton5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(38, 38, 38)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(67, 67, 67))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(97, 97, 97))))
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))))
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +162,10 @@ public class TelaEventos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
                         .addGap(39, 39, 39)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -169,9 +175,7 @@ public class TelaEventos extends javax.swing.JFrame {
                             .addComponent(jButton4)
                             .addComponent(jButton5)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(92, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(12, 12, 12)
+                        .addContainerGap(104, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,6 +196,7 @@ public class TelaEventos extends javax.swing.JFrame {
         jButton5.setEnabled(false);
         edao.verificaExistencia();
 	carregarListaEventos();
+        jLabel3.setText(String.valueOf(edao.carregarEventos().size()));
         Thread t1 = new Thread(){
             @Override
             public void run() {
@@ -223,35 +228,35 @@ public class TelaEventos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
         TelaAddEvento t = new TelaAddEvento();
-        t.setTitle("Adicionar Evento");
-        t.setLocation(500, 20);
+        t.setTitle("Adicionar Evento");        
         t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         t.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            index = jList1.getSelectedIndex();
-            if(index!=-1){
-                ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
-                eventos.remove(index);
-                edao.salvarEevntos(eventos);
-                DefaultListModel l = (DefaultListModel) jList1.getModel();
-                l.removeElementAt(index);
-                if(eventos.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Nenhum evento adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Selecione um evento!", "Cuidado", JOptionPane.WARNING_MESSAGE);    
+        index = jList1.getSelectedIndex();
+        if(index!=-1){
+            ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
+            eventos.remove(index);
+            edao.salvarEevntos(eventos);
+            DefaultListModel l = (DefaultListModel) jList1.getModel();
+            l.removeElementAt(index);
+            if(eventos.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Nenhum evento adicionado!", "Erro", JOptionPane.WARNING_MESSAGE);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um evento!", "Cuidado", JOptionPane.WARNING_MESSAGE);    
+        }
+        jLabel3.setText(String.valueOf(edao.carregarEventos().size()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            index = jList1.getSelectedIndex();            
+            index = jList1.getSelectedIndex();
+            Evento e = (Evento) jList1.getSelectedValue();
             if(index!=-1){
                 dispose();
-                TelaAddEvento t = new TelaAddEvento(index);
-                t.setTitle("Editar Evento");
-                t.setLocation(500, 20);
+                TelaAddEvento t = new TelaAddEvento(index, e);
+                t.setTitle("Editar Evento");                
                 t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 t.setVisible(true);            
             }else{
@@ -315,6 +320,7 @@ public class TelaEventos extends javax.swing.JFrame {
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

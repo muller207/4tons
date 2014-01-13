@@ -148,6 +148,9 @@ public class TelaMostrarEvento extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
+        TelaEventos t = new TelaEventos();
+        t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        t.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

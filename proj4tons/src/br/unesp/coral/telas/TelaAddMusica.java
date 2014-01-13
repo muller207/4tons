@@ -8,6 +8,7 @@ import br.unesp.coral.beans.Musica;
 import br.unesp.coral.dao.MusicaDAO;
 import br.unesp.coral.dao.MusicaDAOImp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -19,9 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class TelaAddMusica extends JFrame {
     JFileChooser x;
-    boolean flag=false;
-    int index;
-   
+    int index=-1;
+    MusicaDAO mdao = new MusicaDAOImp();
+    
     /**
      * Creates new form TelaAddMusica
      */
@@ -29,10 +30,11 @@ public class TelaAddMusica extends JFrame {
         initComponents();
     }
 
-    TelaAddMusica(int b) {
-        initComponents();
-        flag=true;
+    TelaAddMusica(int b, Musica m) {
+        initComponents();        
         index =b;
+        jTextField1.setText(m.getNome());
+        jTextField2.setText(m.getCaminho());            
     }
 	
 	public void inicializarTelaMusica(){
@@ -161,34 +163,34 @@ public class TelaAddMusica extends JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         boolean add = false;
-        Musica m = new Musica();        
+        Musica m = new Musica();
         if (!jTextField1.getText().equals("")){
-        m.setNome(jTextField1.getText());        
-        try {          
-            m.setCaminho(x.getSelectedFile().getPath());
-            add=true;
-        } catch (NullPointerException e) {  
-           JOptionPane.showMessageDialog(null, "Selecione o caminho da música!", "Erro", JOptionPane.WARNING_MESSAGE);  
-        }         
+            m.setNome(jTextField1.getText());        
+            try {          
+                m.setCaminho(jTextField2.getText());
+                add=true;
+            } catch (NullPointerException e) {  
+               JOptionPane.showMessageDialog(null, "Selecione o caminho da música!", "Erro", JOptionPane.WARNING_MESSAGE);  
+            }         
         }else{    
            JOptionPane.showMessageDialog(null, "Adicione um nome à música!", "Erro", JOptionPane.WARNING_MESSAGE);  
         }
         if(add){
-			MusicaDAO mdao = new MusicaDAOImp();
-			List<Musica> l = mdao.carregarMusicas();
-			if (l ==null)
-				l = new ArrayList<Musica>();
-			l.add(m);
-			if(mdao.salvarMusicas(l)){
-                            JOptionPane.showMessageDialog(null, "Música adicionada com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
-                            if(flag){
-                                ArrayList<Musica> musicas = (ArrayList<Musica>) mdao.carregarMusicas();
-                                musicas.remove(index);
-                                mdao.salvarMusicas(musicas);                                                        
-                            }
-			}else{
-				JOptionPane.showMessageDialog(null, "Música não adicionada!", "Erro", JOptionPane.ERROR_MESSAGE); 
-			}
+            if(index!=-1){
+                ArrayList<Musica> musicas = (ArrayList<Musica>) mdao.carregarMusicas();
+                musicas.remove(index);
+                mdao.salvarMusicas(musicas);
+            }
+            List<Musica> l = mdao.carregarMusicas();
+            if (l ==null)
+                    l = new ArrayList<Musica>();
+            l.add(m);
+            Collections.sort(l);
+            if(mdao.salvarMusicas(l)){
+                JOptionPane.showMessageDialog(null, "Música adicionada com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE);                             
+            }else{
+                    JOptionPane.showMessageDialog(null, "Música não adicionada!", "Erro", JOptionPane.ERROR_MESSAGE); 
+            }
               dispose();
               inicializarTelaMusica();
 	  }

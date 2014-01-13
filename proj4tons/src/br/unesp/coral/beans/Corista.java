@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Samuel
  */ 
-public class Corista implements Serializable{
+public class Corista implements Serializable, Comparable<Corista>{
     private String nome;
     private Date dataNas;
     private String rua;
@@ -127,5 +127,10 @@ public class Corista implements Serializable{
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-            
+
+    @Override
+    public int compareTo(Corista o) {
+        return nome.compareToIgnoreCase(o.getNome());
+    }
+    
 }

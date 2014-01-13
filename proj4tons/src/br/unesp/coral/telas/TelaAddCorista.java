@@ -8,6 +8,7 @@ import br.unesp.coral.beans.Corista;
 import br.unesp.coral.dao.CoristaDAO;
 import br.unesp.coral.dao.CoristaDAOImp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -18,7 +19,7 @@ import javax.swing.JTextField;
  */
 public class TelaAddCorista extends javax.swing.JFrame {
     boolean flag=false;
-    int index;
+    int index=-1;
     CoristaDAO cdao = new CoristaDAOImp();
     /**
      * Creates new form TelaAddCorista
@@ -27,10 +28,26 @@ public class TelaAddCorista extends javax.swing.JFrame {
         initComponents();
     }    
     
-    TelaAddCorista(int b) {
-        initComponents();
-        flag=true;
+    TelaAddCorista(int b, Corista c) {
+        initComponents();        
         index =b;
+        if(c.getNaipe().equals("Soprano")){
+            jComboBox1.setSelectedIndex(0);
+        }else if(c.getNaipe().equals("Contralto")){
+            jComboBox1.setSelectedIndex(1);
+        }else if(c.getNaipe().equals("Tenor")){
+            jComboBox1.setSelectedIndex(2);                
+        }else {
+            jComboBox1.setSelectedIndex(3);           
+        }                
+        jTextField1.setText(c.getNome());
+        jDateChooser1.setDate(c.getDataNas());
+        jTextField2.setText(c.getRua());
+        jTextField3.setText(String.valueOf(c.getNumero()));
+        jTextField4.setText(c.getBairro());
+        jTextField5.setText(c.getEmail());
+        jTextField6.setText(c.getTelefone());
+        jTextField7.setText(c.getCelular());
     }
     
     private void inicializarTelaMembros(){
@@ -325,7 +342,7 @@ int valor;
             if(checarDados()){            
                 c.setNaipe(jComboBox1.getSelectedItem().toString());
                 c.setNome(jTextField1.getText());
-                c.setDataNas(jDateChooser1.getDate());          
+                c.setDataNas(jDateChooser1.getDate());
                 c.setRua(jTextField2.getText());
                 c.setNumero(Integer.parseInt(jTextField3.getText()));
                 c.setBairro(jTextField4.getText());
@@ -337,23 +354,24 @@ int valor;
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!", "Cuidado", JOptionPane.WARNING_MESSAGE); 
             }
         }
-        if(add){			
-			List<Corista> l = cdao.carregarCoristas();
-			if (l ==null)
-				l = new ArrayList<Corista>();
-			l.add(c);
-			if(cdao.salvarCoristas(l)){
-				JOptionPane.showMessageDialog(null, "Corista adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
-                                if(flag){
-                                    ArrayList<Corista> coristas = (ArrayList<Corista>) cdao.carregarCoristas();
-                                    coristas.remove(index);
-                                    cdao.salvarCoristas(coristas);                                                        
-                                }
-			}else{
-				JOptionPane.showMessageDialog(null, "Corista não adicionado!", "Erro", JOptionPane.ERROR_MESSAGE); 
-			}
-              dispose();
-              inicializarTelaMembros();
+        if(add){
+            if(index!=-1){
+                ArrayList<Corista> coristas = (ArrayList<Corista>) cdao.carregarCoristas();
+                coristas.remove(index);
+                cdao.salvarCoristas(coristas);
+            }
+            List<Corista> l = cdao.carregarCoristas();
+            if (l ==null)
+                    l = new ArrayList<Corista>();
+            l.add(c);
+            Collections.sort(l);                        
+            if(cdao.salvarCoristas(l)){
+                    JOptionPane.showMessageDialog(null, "Corista adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE);                                                                
+            }else{
+                    JOptionPane.showMessageDialog(null, "Corista não adicionado!", "Erro", JOptionPane.ERROR_MESSAGE); 
+            }
+            dispose();
+            inicializarTelaMembros();
 	  }
         
     }//GEN-LAST:event_jButton2ActionPerformed

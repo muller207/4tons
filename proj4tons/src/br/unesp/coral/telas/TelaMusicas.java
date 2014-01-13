@@ -58,6 +58,7 @@ public class TelaMusicas extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -136,6 +137,8 @@ public class TelaMusicas extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,16 +159,21 @@ public class TelaMusicas extends javax.swing.JFrame {
                         .addContainerGap(70, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
@@ -210,6 +218,7 @@ public class TelaMusicas extends javax.swing.JFrame {
       jButton3.setEnabled(false);
       mdao.verificaExistencia();      
       carregarListaMusicas();
+      jLabel2.setText(String.valueOf(mdao.carregarMusicas().size()));
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -250,13 +259,15 @@ public class TelaMusicas extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Selecione uma música!", "Cuidado", JOptionPane.WARNING_MESSAGE);
         }
+        jLabel2.setText(String.valueOf(mdao.carregarMusicas().size()));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
             index = jList1.getSelectedIndex();
+            Musica m = (Musica) jList1.getSelectedValue();
             if(index!=-1){
                 dispose();
-                TelaAddMusica t = new TelaAddMusica(index);
+                TelaAddMusica t = new TelaAddMusica(index, m);
                 t.setTitle("Editar Música");
                 t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 t.setVisible(true);       
@@ -295,11 +306,10 @@ public class TelaMusicas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {               
-				TelaMusicas t = new TelaMusicas();
-				t.setSize(500, 500);
-				t.setResizable(false);
-				t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);                               
-				t.setVisible(true);         
+                TelaMusicas t = new TelaMusicas();
+                t.setResizable(false);
+                t.setDefaultCloseOperation(DISPOSE_ON_CLOSE);                               
+                t.setVisible(true);         
             }
         });
     }
@@ -310,6 +320,7 @@ public class TelaMusicas extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;

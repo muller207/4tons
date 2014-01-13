@@ -173,7 +173,7 @@ MusicaDAO mdao = new MusicaDAOImp();
         DefaultListModel musicas = new DefaultListModel();
           if(l!=null && l.size()>0){
                 for (Musica m : l) {
-                        if(m.getNome().contains(jTextField1.getText())){
+                        if(m.getNome().toUpperCase().contains(jTextField1.getText().toUpperCase())){
                             musicas.addElement(m);
                         }
 		}

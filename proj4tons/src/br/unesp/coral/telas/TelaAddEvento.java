@@ -8,6 +8,7 @@ import br.unesp.coral.beans.Evento;
 import br.unesp.coral.dao.EventoDAO;
 import br.unesp.coral.dao.EventoDAOImp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,7 +21,8 @@ import javax.swing.SpinnerNumberModel;
  */
 public class TelaAddEvento extends javax.swing.JFrame {
 boolean flag=false;
-    int index;
+int index=-1;
+EventoDAO edao = new EventoDAOImp();
     /**
      * Creates new form TelaAddEvento
      */
@@ -28,10 +30,17 @@ boolean flag=false;
         initComponents();
     }
     
-    TelaAddEvento(int b) {
-        initComponents();
-        flag=true;
+    TelaAddEvento(int b, Evento e) {
+        initComponents();        
         index =b;
+        jTextField1.setText(e.getTitulo());
+        jTextField2.setText(e.getLocal());
+        jDateChooser1.setDate(e.getDia());        
+        SpinnerModel hora = new SpinnerNumberModel(e.getHora().getHours(), 0, 24, 1);        
+        jSpinner1.setModel(hora);                
+        SpinnerModel minutos = new SpinnerNumberModel(e.getHora().getMinutes(), 0, 59, 1);        
+        jSpinner2.setModel(minutos);                
+        jTextArea1.setText(e.getComentarios());
     }
     
     public void inicializarTelaEvento(){        
@@ -191,24 +200,24 @@ boolean flag=false;
             JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!", "Cuidado", JOptionPane.WARNING_MESSAGE); 
         }
         if(add){
-			EventoDAO edao = new EventoDAOImp();
-			List<Evento> l = edao.carregarEventos();
-			if (l ==null)
-				l = new ArrayList<Evento>();
-			l.add(e);
-			if(edao.salvarEevntos(l)){
-				JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE); 
-                                if(flag){
-                                    ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
-                                    eventos.remove(index);
-                                    edao.salvarEevntos(eventos);
-                                }
-			}else{
-				JOptionPane.showMessageDialog(null, "Evento não adicionado!", "Erro", JOptionPane.ERROR_MESSAGE); 
-			}
-              dispose();
-              inicializarTelaEvento();
-	  }
+            if(index!=-1){
+                ArrayList<Evento> eventos = (ArrayList<Evento>) edao.carregarEventos();
+                eventos.remove(index);
+                edao.salvarEevntos(eventos);
+            }            
+            List<Evento> l = edao.carregarEventos();
+            if (l ==null)
+                    l = new ArrayList<Evento>();
+            l.add(e);
+            Collections.sort(l);
+            if(edao.salvarEevntos(l)){
+                    JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE);                                 
+            }else{
+                    JOptionPane.showMessageDialog(null, "Evento não adicionado!", "Erro", JOptionPane.ERROR_MESSAGE); 
+            }
+            dispose();
+            inicializarTelaEvento();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -217,10 +226,7 @@ boolean flag=false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        SpinnerModel s = new SpinnerNumberModel(0, 00, 24, 01);
-        jSpinner1.setModel(s);
-        s = new SpinnerNumberModel(0, 00, 59, 01);
-        jSpinner2.setModel(s);
+        
     }//GEN-LAST:event_formWindowOpened
 
     /**

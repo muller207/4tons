@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author aluno
  */
-public class Musica implements Serializable{
+public class Musica implements Serializable, Comparable<Musica>{
 	
 	private String nome;
         private String caminho;
@@ -43,6 +43,11 @@ public class Musica implements Serializable{
     @Override
     public String toString() {
         return this.nome;
+    }
+
+    @Override
+    public int compareTo(Musica o) {
+        return nome.compareToIgnoreCase(o.getNome());
     }
 		
     
